@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+{% block content %}
+
+{# ── Header bar ── #}
+<div class="run-header">
+  <div class="run-header-left">
+    <a href="/" class="back-link">&larr; Runs</a>
+    <span class="status-pill {{ run.status }}">{{ run.status }}</span>
+    {% if run.sim_elapsed %}
+    <span style="font-size: 11px; font-family: ui-monospace, monospace; color: #7a7770;">sim {{ run.sim_elapsed }}</span>
+    {% endif %}
+    {% if run.started_at %}
+    <span style="font-size: 11px; font-family: ui-monospace, monospace; color: #999;">wall <span class="wall-clock" data-started="{{ run.started_at }}" data-ended="{{ run.ended_at or '' }}" data-status="{{ run.status }}">{{ run.wall_elapsed }}</span></span>
+    {% endif %}
+  </div>
+  <div class="actions">
+    {% if run.status == "paused" and run.started_at %}
+    <form method="post" action="/ui/runs/{{ run.id }}/resume">
+      <button type="submit">Resume</button>
+    </form>
+    {% elif run.status == "running" %}
+    <form method="post" action="/ui/runs/{{ run.id }}/pause">
+      <button type="submit">Pause</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+
+{# ── Objective (collapsible) ── #}
+<details class="panel section" open>
+  <summary class="section-title">Objective</summary>
+  {% if run.assignment %}
+  <h2 style="margin: 8px 0 4px;">{{ run.assignment.title }}</h2>
+  <p style="margin: 0 0 8px; color: #5e5b54;">{{ run.assignment.visible_brief }}</p>
+  {% if run.assignment.constraints %}
+  <div style="margin-top: 8px;">
+    <strong style="font-size: 12px; color: #7a7770;">Constraints:</strong>
+    <ul style="margin: 4px 0 0; padding-left: 20px; font-size: 13px; color: #5e5b54;">
+      {% for c in run.assignment.constraints %}
+      <li>{{ c }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% else %}
+  <h2 style="margin: 8px 0;">{{ run.scenario_id }}</h2>
+  {% endif %}
+</details>
+
+{# ── Scenario Situation ── #}
+{% if scenario_description %}
+<details class="panel section">
+  <summary class="section-title">Scenario Situation</summary>
+  <p style="margin: 8px 0; color: #5e5b54; line-height: 1.5;">{{ scenario_description }}</p>
+</details>
+{% endif %}
+
+{# ── Personas ── #}
+{% if actor_personas %}
+<details class="panel section">
+  <summary class="section-title">Personas ({{ actor_personas | length }})</summary>
+  {% for persona in actor_personas %}
+  <details class="world-item"{% if loop.first %} open{% endif %}>
+    <summary class="world-item-title">
+      <span class="world-kind" style="min-width: 100px;">{{ persona.role }}</span>
+      <strong>{{ persona.name }}</strong>
+      {% if persona.team %}<span style="font-size: 11px; color: #999; margin-left: 4px;">({{ persona.team }})</span>{% endif %}
+    </summary>
+    <div class="world-item-body" style="padding-left: 108px;">
+      {% if persona.character_prompt %}
+      <div style="white-space: pre-wrap; font-size: 13px; color: #5e5b54; line-height: 1.6; margin: 0;">{{ persona.character_prompt }}</div>
+      {% endif %}
+      {% if persona.goals %}
+      <div style="margin-top: 8px; font-size: 12px;">
+        <strong style="color: #7a7770;">Goals:</strong>
+        {% for category, items in persona.goals.items() %}
+        <ul style="margin: 2px 0 0; padding-left: 16px; color: #5e5b54;">
+          {% if items is iterable and items is not string %}
+          {% for item in items %}
+          <li>{{ item }}</li>
+          {% endfor %}
+          {% else %}
+          <li>{{ items }}</li>
+          {% endif %}
+        </ul>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </details>
+  {% endfor %}
+</details>
+{% endif %}
+
+{# ── Judge Logic ── #}
+{% if judge_specs %}
+<details class="panel section">
+  <summary class="section-title">Judge Logic ({{ judge_specs | length }} judges)</summary>
+  <div style="margin: 8px 0;">
+    {% for spec in judge_specs %}
+    <div style="margin-bottom: 10px;">
+      <strong style="font-size: 13px;">{{ spec.name }}</strong>
+      <p style="margin: 2px 0 0; font-size: 12px; color: #7a7770;">{{ spec.description }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</details>
+{% endif %}
+
+{# ── Tabs ── #}
+<div class="tabs">
+  <button class="tab active" onclick="showTab('stream', this)">Activity</button>
+  {% if run.status in ["completed", "stopped"] %}
+  <button class="tab" onclick="showTab('summary', this)">Summary</button>
+  <button class="tab" onclick="showTab('judges', this)">Judges</button>
+  {% endif %}
+</div>
+
+{# ── Activity Stream ── #}
+<section id="tab-stream" class="panel tab-content" style="border-top-left-radius: 0;">
+  {% if not activity_entries %}
+  <p class="muted">No activity yet. Start the run to begin.</p>
+  {% endif %}
+  <div class="stream">
+    {% for entry in activity_entries %}
+    <div class="stream-entry{% if entry.is_thought %} thought{% endif %}">
+      <span class="stream-time">{{ entry.relative_time }}</span>
+      <span class="stream-actor">
+        <span class="stream-actor-name">{{ entry.actor_name }}</span>
+        {% if entry.actor_role %}<span class="stream-actor-role">{{ entry.actor_role }}</span>{% endif %}
+      </span>
+      <span class="stream-text">{{ entry.summary }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{# ── Summary Tab ── #}
+{% if run.status in ["completed", "stopped"] %}
+<section id="tab-summary" class="panel tab-content" style="border-top-left-radius: 0; display: none;">
+  {% if summary %}
+  <div class="prose">{{ summary.content_json.narrative }}</div>
+  {% else %}
+  <p class="muted">Summary is being generated...</p>
+  {% endif %}
+</section>
+
+{# ── Judges Tab ── #}
+<section id="tab-judges" class="panel tab-content" style="border-top-left-radius: 0; display: none;">
+  {% if judge_results %}
+  <div class="judgment">
+    {# Show final score prominently at the top if it exists #}
+    {% for result in judge_results if result.analysis_type == "judge_final_score" %}
+    <div style="margin-bottom: 20px; padding: 16px; background: #f8f7f5; border-radius: 8px; border-left: 4px solid #7a7770;">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+        <strong style="font-size: 16px;">Final Score</strong>
+        {% if result.content_json.evidence and result.content_json.evidence[0].final_score %}
+        <span style="font-size: 28px; font-weight: 700; font-family: ui-monospace, monospace; color: {% if result.content_json.evidence[0].final_score >= 7 %}#2d7d3a{% elif result.content_json.evidence[0].final_score >= 5 %}#8a6d00{% else %}#c44536{% endif %};">{{ result.content_json.evidence[0].final_score }}/10</span>
+        {% endif %}
+      </div>
+      <div class="prose" style="font-size: 13px;">{{ result.content_json.narrative | default("No narrative available.") }}</div>
+    </div>
+    {% endfor %}
+
+    {# Show all other judge results #}
+    {% for result in judge_results if result.analysis_type != "judge_final_score" %}
+    <details{% if loop.first %} open{% endif %} style="margin-bottom: 16px;">
+      <summary style="cursor: pointer; font-weight: 600; font-size: 14px; margin-bottom: 8px;">
+        {{ result.content_json.judge_name | default(result.analysis_type) }}
+      </summary>
+      <div class="prose" style="margin-left: 8px;">{{ result.content_json.narrative | default("No narrative available.") }}</div>
+      {% if result.content_json.evidence %}
+      <details style="margin-left: 8px; margin-top: 8px;">
+        <summary style="font-size: 12px; color: #7a7770; cursor: pointer;">Evidence ({{ result.content_json.evidence | length }} items)</summary>
+        <pre style="font-size: 11px; color: #7a7770; white-space: pre-wrap; margin-top: 4px;">{{ result.content_json.evidence | tojson(indent=2) }}</pre>
+      </details>
+      {% endif %}
+    </details>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="muted">Judge results are being generated...</p>
+  {% endif %}
+</section>
+{% endif %}
+
+{# ── Finish info ── #}
+{% if run.assignment and run.assignment.finish_summary %}
+<details class="panel section" open>
+  <summary class="section-title">PM Finish Statement</summary>
+  <p>{{ run.assignment.finish_summary }}</p>
+  {% if run.assignment.remaining_risks %}
+  <p class="muted">Flagged risks: {{ run.assignment.remaining_risks | join(", ") }}</p>
+  {% endif %}
+</details>
+{% endif %}
+
+<script>
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).style.display = 'block';
+  btn.classList.add('active');
+}
+function formatDuration(ms) {
+  var s = Math.max(Math.floor(ms / 1000), 0);
+  if (s < 60) return s + 's';
+  var m = Math.floor(s / 60);
+  if (m < 60) return m + 'm';
+  var h = Math.floor(m / 60); m = m % 60;
+  if (h < 24) return m ? h + 'h ' + m + 'm' : h + 'h';
+  var d = Math.floor(h / 24); h = h % 24;
+  return h ? d + 'd ' + h + 'h' : d + 'd';
+}
+function tickWallClocks() {
+  document.querySelectorAll('.wall-clock').forEach(function(el) {
+    var started = el.dataset.started;
+    var ended = el.dataset.ended;
+    var status = el.dataset.status;
+    if (!started) return;
+    var end = (ended && status !== 'running') ? new Date(ended) : new Date();
+    var elapsed = end - new Date(started);
+    el.textContent = formatDuration(elapsed);
+  });
+}
+tickWallClocks();
+setInterval(tickWallClocks, 1000);
+</script>
+{% endblock %}

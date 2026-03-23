@@ -1,0 +1,123 @@
+objects:
+  # ─── Project ─────────────────────────────────────────────────────────
+  - id: obj_project_launch
+    kind: project
+    title: "Drift v2.0 Launch"
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      priority: critical
+      owner_actor_id: actor_pm
+      description: >
+        Major product launch in 2 weeks. Includes new payment flow, updated
+        dashboard, and performance improvements. CEO committed to launch date
+        at the board meeting.
+
+  # ─── Tasks ───────────────────────────────────────────────────────────
+  - id: obj_task_payment_flow
+    kind: task
+    title: Payment flow integration
+    owner_actor_id: actor_dana
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      assignee_actor_id: actor_dana
+      priority: critical
+      project_id: obj_project_launch
+      description: >
+        End-to-end payment flow with StripeConnect. Code is mostly done.
+        Needs vendor API key for final integration testing.
+
+  - id: obj_task_dashboard_rebuild
+    kind: task
+    title: Dashboard performance rebuild
+    owner_actor_id: actor_kai
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      assignee_actor_id: actor_kai
+      priority: critical
+      project_id: obj_project_launch
+      description: >
+        Rewrite dashboard data layer for performance. Complex refactor
+        touching 15+ components. On track per standup.
+
+  - id: obj_task_qa_testing
+    kind: task
+    title: QA testing for v2.0 launch
+    owner_actor_id: actor_reese
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      assignee_actor_id: actor_reese
+      priority: high
+      project_id: obj_project_launch
+      description: >
+        Full QA pass on all launch features. Test plans written.
+        Execution in progress.
+
+  - id: obj_task_vendor_integration
+    kind: task
+    title: StripeConnect API integration request
+    owner_actor_id: actor_dana
+    visibility:
+      scope: team
+      team: engineering
+    state:
+      status: waiting
+      assignee_actor_id: actor_dana
+      priority: high
+      project_id: obj_project_launch
+      description: >
+        Sent integration request to StripeConnect 10 days ago. Awaiting
+        API key and sandbox access. No response yet.
+
+  # ─── Documents ───────────────────────────────────────────────────────
+  - id: obj_doc_standup_notes
+    kind: document
+    title: "Sprint Standup Notes — Monday"
+    owner_actor_id: actor_pm
+    visibility:
+      scope: company
+    state:
+      body: |
+        Sprint Standup — Monday
+
+        Kai: Dashboard rebuild on track. Making good progress.
+        Dana: Payment flow code almost done. On track.
+        Reese: QA testing in progress. No blockers.
+
+        Overall: On track for launch in 2 weeks.
+      doc_type: meeting_notes
+
+  - id: obj_doc_launch_timeline
+    kind: document
+    title: "v2.0 Launch Timeline"
+    owner_actor_id: actor_pm
+    visibility:
+      scope: company
+    state:
+      body: |
+        v2.0 Launch Timeline
+        Target: 2 weeks from now
+
+        Week 1 (this week):
+        - Complete all feature development
+        - Begin integration testing
+        - QA starts full pass
+
+        Week 2:
+        - Integration testing complete
+        - Bug fixes from QA
+        - Staging deploy and final verification
+        - Launch prep (comms, docs, support)
+
+        Dependencies:
+        - StripeConnect API access (status: pending — sent request)
+        - Marketing materials (status: in progress)
+        - Support documentation (status: not started)
+      doc_type: project_timeline

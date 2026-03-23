@@ -1,0 +1,107 @@
+objects:
+  # ─── Projects ────────────────────────────────────────────────────────
+  - id: obj_project_api_migration
+    kind: project
+    title: API Migration (v1 → v2)
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      priority: high
+      owner_actor_id: actor_lee
+      description: >
+        Migrating from legacy API v1 to v2. The legacy auth flow is the most
+        complex part — custom token refresh, session management, and backward
+        compatibility with older clients. Lee is the primary knowledge holder.
+
+  - id: obj_project_monitoring
+    kind: project
+    title: Production Monitoring & Alerting
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      priority: high
+      owner_actor_id: actor_lee
+      description: >
+        Custom alerting rules built over 2 years. Includes tuned thresholds
+        for API latency, error rates, queue depths, and custom business metrics.
+        Lee built and maintains all of it.
+
+  # ─── Tasks ───────────────────────────────────────────────────────────
+  - id: obj_task_api_handoff
+    kind: task
+    title: API migration knowledge transfer
+    owner_actor_id: actor_lee
+    visibility:
+      scope: company
+    state:
+      status: not_started
+      assignee_actor_id: actor_mira
+      priority: high
+      project_id: obj_project_api_migration
+      description: >
+        Mira needs to understand the legacy auth flow to continue the API
+        migration after Lee leaves. No session has been scheduled yet.
+
+  - id: obj_task_monitoring_handoff
+    kind: task
+    title: Monitoring & alerting knowledge transfer
+    owner_actor_id: actor_lee
+    visibility:
+      scope: company
+    state:
+      status: not_started
+      assignee_actor_id: actor_nate
+      priority: high
+      project_id: obj_project_monitoring
+      description: >
+        Nate needs to understand the custom alerting rules, tuned thresholds,
+        and incident response playbooks that Lee built.
+
+  # ─── Documents ───────────────────────────────────────────────────────
+  - id: obj_doc_lee_projects
+    kind: document
+    title: Lee's Project Ownership List
+    owner_actor_id: actor_lee
+    visibility:
+      scope: company
+    state:
+      body: |
+        Lee's Project Ownership
+        Last updated: 3 weeks ago
+
+        Primary owner:
+        - API v1→v2 migration (legacy auth flow)
+        - Production monitoring & alerting (custom rules)
+        - Partner integration (Acme Corp API)
+
+        Secondary / contributor:
+        - Database optimization scripts
+        - CI/CD pipeline (shared with DevOps)
+      doc_type: project_list
+
+  - id: obj_doc_slack_thread
+    kind: document
+    title: "Slack Thread: Acme Corp Integration Edge Cases"
+    owner_actor_id: actor_lee
+    visibility:
+      scope: company
+    state:
+      body: |
+        #backend channel — 3 months ago
+
+        Lee: Heads up — found some undocumented edge cases in the Acme Corp
+        partner API. Their webhook payload format changes when the order has
+        more than 50 line items. The docs say it is always JSON but above 50
+        items they switch to multipart. I patched our handler but did not
+        document it anywhere. Should probably write this up before I forget.
+
+        (no replies)
+
+        Lee: Also their sandbox env does not reproduce this — you need a
+        production-size payload to trigger it. Just FYI if anyone is testing
+        the integration.
+
+        (no replies)
+      doc_type: slack_archive

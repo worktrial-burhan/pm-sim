@@ -1,0 +1,191 @@
+triggers:
+  # ═══════════════════════════════════════════════════════════════════════
+  # DAY 1 (Monday) — 7:00 AM start
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_mon_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Monday. The priority conflict between the feature demo (Morgan/CEO)
+        and compliance migration (Avery/VP Eng) has been simmering all last week.
+        Sasha is context-switching and making progress on neither. I need to make
+        a call today. Both Morgan and Avery expect to be the top priority.
+
+  - id: trg_morgan_mon_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_morgan
+    priority: 9
+    data:
+      reason: >
+        7 AM Monday. The Apex Corp demo is in 10 days. I told Taylor this is
+        the top priority. The board is watching this deal. If we do not deliver
+        this demo, we lose the $2M opportunity and I look unreliable to the
+        partner. I need an update from Taylor today.
+
+  - id: trg_avery_mon_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_avery
+    priority: 9
+    data:
+      reason: >
+        7 AM Monday. I committed to the board on the compliance migration.
+        The audit window opens in 6 weeks. If the backend team is still working
+        on a feature demo instead of compliance, I am going to escalate. I
+        need to check in with Taylor and make sure this is on track.
+
+  - id: trg_sasha_mon_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_sasha
+    priority: 8
+    data:
+      reason: >
+        7 AM Monday. Another week of context-switching. I spent Friday afternoon
+        on the feature demo and this morning I need to switch back to compliance.
+        This is killing my productivity. I just need someone to tell me which
+        one to focus on. Also I am increasingly worried about the sync processing
+        assumption in the feature architecture, but I do not want to be the one
+        to tell the CTO his architecture is wrong.
+
+  - id: trg_quinn_mon_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_quinn
+    priority: 7
+    data:
+      reason: >
+        7 AM Monday. My design work for the feature demo is done and I am
+        excited to see it built. I heard there might be some priority discussions
+        happening. I hope the demo is still on track — I put 3 weeks into those
+        mockups and I think it is some of my best work.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Monday — Mid-morning (pressure builds)
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_morgan_followup
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 180
+    actor_id: actor_morgan
+    priority: 9
+    data:
+      reason: >
+        10 AM Monday. I have not heard from Taylor yet about the demo timeline.
+        I am going to reach out. The partner is expecting a preview invite this
+        week. I cannot send it without confidence the demo will be ready.
+
+  - id: trg_pm_mon_midmorning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 180
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        10 AM Monday. I should have talked to the key people by now. What is
+        the real state of both projects? What will it take to deliver each one?
+        I need to make a decision and stop straddling.
+
+  - id: trg_avery_followup
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 240
+    actor_id: actor_avery
+    priority: 8
+    data:
+      reason: >
+        11 AM Monday. I want to make sure Taylor understands the compliance
+        risk. This is not just an engineering preference — it is a legal and
+        business risk. I should send a clear message about the consequences
+        of delay.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Monday — Afternoon (decision time)
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_mon_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 420
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        2 PM Monday. I need to make the decision and communicate it today.
+        Every hour I delay, Sasha loses productivity to context-switching.
+        What is my call? What is the plan for the side that does not get
+        priority? How do I communicate this?
+
+  - id: trg_sasha_mon_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 420
+    actor_id: actor_sasha
+    priority: 7
+    data:
+      reason: >
+        2 PM Monday. Still no decision. I switched from compliance to feature
+        demo after lunch. I lost 30 minutes just context-switching. This is
+        unsustainable. If Taylor does not make a call by end of day, I am
+        going to ask directly.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # DAY 2 (Tuesday) — Follow-through
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_tue_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 601
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Tuesday. If I made a decision yesterday, today is about
+        follow-through. Is the team aligned? Does the losing side have a plan?
+        Is Quinn okay? Did I discover any new information that changes things?
+
+  - id: trg_morgan_tue_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 601
+    actor_id: actor_morgan
+    priority: 8
+    data:
+      reason: >
+        7 AM Tuesday. What did Taylor decide? If the demo is deprioritized,
+        I need to know NOW so I can manage the partner relationship. If it is
+        on track, I need a concrete timeline.
+
+  - id: trg_avery_tue_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 605
+    actor_id: actor_avery
+    priority: 8
+    data:
+      reason: >
+        7 AM Tuesday. What is the compliance migration status? If it was
+        deprioritized, I need a clear remediation timeline that I can take
+        to the board. Vague promises will not cut it.
+
+  - id: trg_quinn_tue_check
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 661
+    actor_id: actor_quinn
+    priority: 6
+    data:
+      reason: >
+        8 AM Tuesday. I heard there was a priority decision yesterday. I
+        hope my design work is still going to be used. If not, I wish
+        someone would tell me directly rather than letting me find out
+        from a Slack thread.
+
+  - id: trg_pm_tue_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1021
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        2 PM Tuesday. Final check. Is the team executing on the decision?
+        Are there any loose ends? Is the losing side managed?

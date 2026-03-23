@@ -1,0 +1,133 @@
+objects:
+  # ─── Projects ────────────────────────────────────────────────────────
+  - id: obj_project_feature_demo
+    kind: project
+    title: "Apex Corp Feature Demo (Path A)"
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      priority: critical
+      owner_actor_id: actor_pm
+      description: >
+        Flagship feature demo for Apex Corp partner event in 10 days.
+        $2M ARR deal. CEO committed personally. Architecture designed by CTO.
+        Requires dedicated backend team for implementation.
+
+  - id: obj_project_compliance
+    kind: project
+    title: "SOC2 Compliance Migration (Path B)"
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      priority: critical
+      owner_actor_id: actor_avery
+      description: >
+        SOC2 compliance migration flagged by auditor. VP Eng committed to
+        board for end-of-quarter completion. Backend team is the only team
+        that can do the data migration work.
+
+  # ─── Tasks ───────────────────────────────────────────────────────────
+  - id: obj_task_feature_backend
+    kind: task
+    title: Feature demo backend implementation
+    owner_actor_id: actor_sasha
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      assignee_actor_id: actor_sasha
+      priority: critical
+      project_id: obj_project_feature_demo
+      description: >
+        Backend data pipeline for flagship feature. Estimated 8-10 days of
+        dedicated work. Currently getting fragmented attention due to competing
+        priorities.
+
+  - id: obj_task_compliance_migration
+    kind: task
+    title: SOC2 compliance data migration
+    owner_actor_id: actor_sasha
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      assignee_actor_id: actor_sasha
+      priority: critical
+      project_id: obj_project_compliance
+      description: >
+        Migrate data storage to SOC2-compliant infrastructure. Estimated
+        6-8 days of dedicated work. Currently getting fragmented attention.
+
+  - id: obj_task_feature_design
+    kind: task
+    title: Feature demo design and mockups
+    owner_actor_id: actor_quinn
+    visibility:
+      scope: company
+    state:
+      status: done
+      assignee_actor_id: actor_quinn
+      priority: high
+      project_id: obj_project_feature_demo
+      description: >
+        Design work for flagship feature demo. Completed — 3 weeks of work.
+        Interaction design, visual design, and demo flow all finalized.
+
+  # ─── Documents ───────────────────────────────────────────────────────
+  - id: obj_doc_feature_spec
+    kind: document
+    title: "Apex Corp Feature Demo — Technical Spec"
+    owner_actor_id: actor_sasha
+    visibility:
+      scope: company
+    state:
+      body: |
+        Apex Corp Feature Demo — Technical Spec
+        Author: CTO (architecture), Sasha (implementation details)
+
+        Architecture:
+        - Synchronous data pipeline processing partner data feeds
+        - REST API endpoints for demo dashboard
+        - Real-time metrics visualization
+
+        Estimated effort: 8-10 days dedicated backend work
+        Current status: ~20% complete (basic scaffolding)
+
+        Notes:
+        - Architecture assumes synchronous processing
+        - Partner data volume TBD (Apex has not confirmed)
+        - Quinn's design work is complete and ready for implementation
+      doc_type: technical_spec
+
+  - id: obj_doc_compliance_brief
+    kind: document
+    title: "SOC2 Compliance Gap — Remediation Plan"
+    owner_actor_id: actor_avery
+    visibility:
+      scope: company
+    state:
+      body: |
+        SOC2 Compliance Gap — Remediation Plan
+        Author: Avery (VP Engineering)
+
+        Issue: Auditor flagged data-at-rest encryption gap in customer data
+        storage layer. Current implementation uses application-level encryption
+        but SOC2 requires infrastructure-level encryption with key rotation.
+
+        Impact: Material audit finding if not remediated before next audit cycle.
+        Next audit window opens in ~6 weeks.
+
+        Remediation:
+        - Migrate data storage to encrypted-at-rest infrastructure
+        - Implement key rotation schedule
+        - Update access control policies
+        - Document for auditor review
+
+        Estimated effort: 6-8 days dedicated backend work
+        Committed timeline: End of quarter (board commitment)
+
+        Risk if delayed: Potential material finding, loss of enterprise customer
+        trust, possible impact on pending enterprise deals that require SOC2.
+      doc_type: compliance_brief

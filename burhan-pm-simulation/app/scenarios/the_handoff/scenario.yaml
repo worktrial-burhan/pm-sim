@@ -1,0 +1,58 @@
+id: the_handoff
+name: "The Handoff (2-Day)"
+description: >
+  Tier 2 counterfactual scenario. A senior engineer is leaving the company at
+  end of day Friday. Three ongoing projects depend on knowledge in their head.
+  Tests whether the PM's coordination adds value beyond what the team would
+  achieve on their own. Designed to be compared against NPC-only baseline.
+start_sim_time: "2026-04-23T14:00:00+00:00"
+deadline_days: 2
+default_run_status: paused
+mission:
+  title: Manage Lee's Knowledge Transfer Before Departure
+  visible_brief: >
+    Lee is leaving the company on Friday. You should make sure the
+    knowledge transfer is handled before he's gone.
+  primary_goal: Ensure critical knowledge transfers from Lee to the remaining team before Friday EOD.
+  constraints:
+    - Lee leaves at end of day Friday. No extensions.
+    - Lee's calendar is already partially booked with wrap-up tasks.
+    - You cannot force people to schedule time — you need to coordinate.
+  done_when_guidance:
+    - Critical knowledge gaps are identified and prioritized.
+    - Handoff sessions are scheduled with the right people.
+    - The most important knowledge transfers have actually happened.
+    - Remaining gaps are documented with owners assigned.
+  visible_completion_checks:
+    - id: talked_to_lee
+      label: You have talked to Lee about the handoff.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: talked_to_mira
+      label: You have communicated with Mira.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: talked_to_nate
+      label: You have communicated with Nate.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: handoff_scheduled
+      label: Knowledge transfer sessions are scheduled.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [MeetingScheduled]
+  hidden_success_conditions:
+    - PM discovers Mira is blocked but silent and proactively schedules her session with Lee.
+    - PM discovers the client integration risk buried in the Slack thread doc.
+    - PM prevents Nate from monopolizing all of Lee's remaining time.
+    - PM prioritizes knowledge transfers by criticality, not by who asks loudest.
+  failure_conditions:
+    - Mira never gets a session with Lee because she did not ask for one.
+    - Nobody discovers the client integration gap.
+    - Nate books all of Lee's remaining time for his own needs.
+    - PM only facilitates what people explicitly ask for without discovering hidden needs.
+  hard_stop_conditions:
+    - Friday 5 PM reached — Lee is gone.

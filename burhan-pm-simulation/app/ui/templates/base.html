@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or "PM Simulation" }}</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        margin: 0;
+        background: #f5f5f0;
+        color: #1a1a1a;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      header {
+        background: #1a1a2e;
+        color: #f0f0f0;
+        padding: 12px 24px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      header a { color: inherit; text-decoration: none; }
+      header strong { font-size: 15px; }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 16px 24px 40px;
+      }
+      a { color: #2563eb; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      /* Grid */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 12px;
+      }
+
+      /* Panels */
+      .panel {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 16px;
+      }
+      .panel h2 { margin-top: 0; font-size: 16px; font-weight: 600; }
+      .panel h3 {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 20px 0 6px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #eee;
+      }
+
+      /* Sections (collapsible) */
+      .section { margin-top: 12px; }
+      .section-title {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #666;
+        cursor: pointer;
+        user-select: none;
+        padding: 2px 0;
+      }
+
+      /* Forms / Buttons */
+      form { margin: 0; }
+      button {
+        background: #1a1a2e;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: 12px;
+        font-family: inherit;
+        font-weight: 500;
+      }
+      button:hover { background: #2a2a4e; }
+      select {
+        font-family: inherit;
+        font-size: 12px;
+        padding: 4px 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background: #fff;
+      }
+
+      /* Run header */
+      .run-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .run-header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .back-link {
+        font-size: 13px;
+        color: #666;
+      }
+      .actions {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .speed-form {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+      }
+
+      code {
+        background: #f0f0f0;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 12px;
+        font-family: ui-monospace, Menlo, Monaco, monospace;
+      }
+      .muted { color: #888; }
+
+      /* Cast */
+      .cast {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .cast-member {
+        background: #f0f0f0;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 13px;
+      }
+
+      /* World items */
+      .world-item {
+        border-bottom: 1px solid #f0f0f0;
+        padding: 6px 0;
+      }
+      .world-item:last-child { border-bottom: none; }
+      .world-item-title {
+        cursor: pointer;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .world-kind {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #999;
+        min-width: 60px;
+      }
+      .world-status {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 1px 6px;
+        border-radius: 3px;
+        margin-left: auto;
+      }
+      .world-status.in_progress { background: #e0f0ff; color: #1a6fb5; }
+      .world-status.at_risk { background: #fff3cd; color: #856404; }
+      .world-status.blocked { background: #f8d7da; color: #721c24; }
+      .world-status.done { background: #d4edda; color: #155724; }
+      .world-item-body {
+        padding: 8px 0 4px 68px;
+        font-size: 13px;
+      }
+      .world-body {
+        font-size: 12px;
+        font-family: ui-monospace, Menlo, Monaco, monospace;
+        background: #fafafa;
+        padding: 8px 12px;
+        border-radius: 4px;
+        border: 1px solid #eee;
+        white-space: pre-wrap;
+        margin: 4px 0;
+      }
+
+      /* Tabs */
+      .tabs {
+        display: flex;
+        gap: 2px;
+        margin-top: 16px;
+      }
+      .tab {
+        border-radius: 6px 6px 0 0;
+        background: #e0e0e0;
+        color: #333;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .tab.active {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-bottom: 1px solid #fff;
+        color: #1a1a1a;
+        font-weight: 600;
+      }
+      .tab-content { margin-top: 0; }
+
+      /* Activity stream */
+      .stream-entry {
+        padding: 5px 0;
+        border-bottom: 1px solid #f5f5f5;
+        display: flex;
+        gap: 12px;
+        font-size: 13px;
+      }
+      .stream-time {
+        color: #999;
+        min-width: 75px;
+        flex-shrink: 0;
+        font-size: 12px;
+        text-align: right;
+        font-family: ui-monospace, Menlo, Monaco, monospace;
+      }
+      .stream-actor {
+        min-width: 80px;
+        max-width: 100px;
+        flex-shrink: 0;
+        line-height: 1.3;
+      }
+      .stream-actor-name {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .stream-actor-role {
+        display: block;
+        font-size: 10px;
+        color: #999;
+        text-transform: lowercase;
+      }
+      .stream-text { flex: 1; }
+      .stream-entry.thought {
+        color: #888;
+        font-style: italic;
+      }
+
+      /* Status pill */
+      .status-pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .status-pill.running { background: #d4edda; color: #155724; }
+      .status-pill.paused { background: #fff3cd; color: #856404; }
+      .status-pill.completed { background: #d1ecf1; color: #0c5460; }
+      .status-pill.stopped { background: #f8d7da; color: #721c24; }
+
+      /* Prose */
+      .prose {
+        white-space: pre-wrap;
+        line-height: 1.7;
+        font-size: 14px;
+      }
+
+      /* Judgment */
+      .judgment h3 { color: #1a1a2e; }
+
+      /* Table (home page) */
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th, td {
+        border-bottom: 1px solid #eee;
+        text-align: left;
+        padding: 8px 4px;
+        vertical-align: top;
+      }
+      th { font-weight: 600; color: #666; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+    </style>
+    {% if refresh_seconds %}
+    <script>
+      (() => {
+        const refreshMs = {{ (refresh_seconds * 1000) | int }};
+        const interactionPauseMs = 15000;
+        let pauseUntil = 0;
+
+        const isInteractiveControl = (element) => {
+          if (!element || typeof element.matches !== "function") return false;
+          return element.matches("input, select, textarea, button");
+        };
+
+        /* ── Persist <details> open/close state across refreshes ── */
+        const DETAILS_KEY = "pm-sim-details-state";
+        const saveDetailsState = () => {
+          const state = {};
+          document.querySelectorAll("details").forEach((el) => {
+            const key = el.id || el.querySelector("summary")?.textContent?.trim();
+            if (key) state[key] = el.open;
+          });
+          sessionStorage.setItem(DETAILS_KEY, JSON.stringify(state));
+        };
+        const restoreDetailsState = () => {
+          try {
+            const state = JSON.parse(sessionStorage.getItem(DETAILS_KEY) || "{}");
+            document.querySelectorAll("details").forEach((el) => {
+              const key = el.id || el.querySelector("summary")?.textContent?.trim();
+              if (key && key in state) el.open = state[key];
+            });
+          } catch (_) {}
+        };
+
+        const pauseRefresh = () => {
+          pauseUntil = Math.max(pauseUntil, Date.now() + interactionPauseMs);
+        };
+        const shouldPauseRefresh = () => {
+          if (Date.now() < pauseUntil) return true;
+          return isInteractiveControl(document.activeElement);
+        };
+        const scheduleRefresh = () => {
+          window.setTimeout(() => {
+            if (shouldPauseRefresh()) { scheduleRefresh(); return; }
+            saveDetailsState();
+            window.location.reload();
+          }, refreshMs);
+        };
+        window.addEventListener("DOMContentLoaded", () => {
+          restoreDetailsState();
+          document.addEventListener("focusin", (e) => { if (isInteractiveControl(e.target)) pauseRefresh(); });
+          document.addEventListener("change", (e) => { if (isInteractiveControl(e.target)) pauseRefresh(); });
+          document.addEventListener("pointerdown", (e) => { if (isInteractiveControl(e.target)) pauseRefresh(); });
+          document.addEventListener("submit", () => { pauseRefresh(); });
+          scheduleRefresh();
+        }, { once: true });
+      })();
+    </script>
+    {% endif %}
+  </head>
+  <body>
+    <header>
+      <a href="/"><strong>PM Simulation</strong></a>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

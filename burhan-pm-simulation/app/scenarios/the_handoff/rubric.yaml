@@ -1,0 +1,28 @@
+hidden_truth:
+  mira_silent_need: >
+    Mira desperately needs a deep-dive session with Lee on the legacy auth flow
+    but will not ask for one. She will say "making progress" if asked generally.
+    Only responds honestly if asked specifically about the auth flow or her
+    comfort level with the migration.
+  nate_monopolizes: >
+    Without PM intervention, Nate will book 4+ hours of Lee's remaining time
+    for monitoring handoff. This is legitimate but disproportionate — he is
+    not the only one who needs Lee's time.
+  client_integration_risk: >
+    The Acme Corp partner integration has undocumented edge cases (webhook
+    payload format changes above 50 line items). This is documented only in a
+    Slack thread from 3 months ago that nobody read. Lee will only mention it
+    if asked specifically about external dependencies or partner integrations.
+  priority_order: >
+    Correct priority: (1) Mira's auth flow session — she cannot continue the
+    migration without it, (2) Nate's monitoring session — important but he
+    can learn some from config files, (3) Client integration documentation —
+    critical but can be a quick write-up from Lee. The PM should discover all
+    three and allocate Lee's time accordingly.
+
+notes:
+  - "Tier 2 scenario — counterfactual evaluation."
+  - "Key test: would outcomes be meaningfully worse without the PM?"
+  - "Without PM: Nate gets all the time, Mira gets nothing, client integration gap is never discovered."
+  - "The PM must dig past 'everything is fine' to find real needs."
+  - "Mira is the key test case — discovering her silent need is the critical move."

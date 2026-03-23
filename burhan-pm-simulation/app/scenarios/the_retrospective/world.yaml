@@ -1,0 +1,141 @@
+objects:
+  # ─── Project ─────────────────────────────────────────────────────────
+  - id: obj_project_workspaces
+    kind: project
+    title: "Collaborative Workspaces"
+    visibility:
+      scope: company
+    state:
+      status: shipped
+      priority: high
+      owner_actor_id: actor_pm
+      description: >
+        Major feature that shipped yesterday. Enables real-time collaborative
+        editing and workspace management. Shipped on time but with some design
+        scope cuts and late-stage bugs from skipped tests.
+
+  # ─── Tasks ───────────────────────────────────────────────────────────
+  - id: obj_task_retro_feedback
+    kind: task
+    title: Collect retrospective feedback
+    owner_actor_id: actor_pm
+    visibility:
+      scope: company
+    state:
+      status: not_started
+      assignee_actor_id: actor_pm
+      priority: high
+      project_id: obj_project_workspaces
+      description: >
+        Collect honest feedback from each team member about the sprint.
+        1:1 conversations preferred.
+
+  - id: obj_task_retro_doc
+    kind: task
+    title: Write retrospective document
+    owner_actor_id: actor_pm
+    visibility:
+      scope: company
+    state:
+      status: not_started
+      assignee_actor_id: actor_pm
+      priority: high
+      project_id: obj_project_workspaces
+      description: >
+        Synthesize team feedback into a fair retrospective document.
+        Must represent all perspectives honestly.
+
+  - id: obj_task_process_changes
+    kind: task
+    title: Propose process improvements
+    owner_actor_id: actor_pm
+    visibility:
+      scope: company
+    state:
+      status: not_started
+      assignee_actor_id: actor_pm
+      priority: medium
+      project_id: obj_project_workspaces
+      description: >
+        Based on retro findings, propose concrete process changes that
+        address root causes.
+
+  # ─── Documents ───────────────────────────────────────────────────────
+  - id: obj_doc_ship_announcement
+    kind: document
+    title: "Collaborative Workspaces — Ship Announcement"
+    owner_actor_id: actor_pm
+    visibility:
+      scope: company
+    state:
+      body: |
+        Team,
+
+        Collaborative Workspaces is LIVE! Big congratulations to the team
+        for shipping on schedule.
+
+        Key highlights:
+        - Real-time collaborative editing
+        - Workspace management and permissions
+        - Performance optimized for 50+ concurrent users
+
+        Thank you to everyone who drove the technical direction and design
+        for this feature. Special thanks to the engineering team for the
+        architecture work and to design for the UX vision.
+
+        Looking forward to the retrospective this week.
+
+        — Sage
+      doc_type: announcement
+
+  - id: obj_doc_sprint_bugs
+    kind: document
+    title: "Late-Stage Bug Report — Collaborative Workspaces"
+    owner_actor_id: actor_drew
+    visibility:
+      scope: team
+      team: engineering
+    state:
+      body: |
+        Late-Stage Bugs — Final Sprint Week
+
+        Bug #1: Config drift between staging and production
+        - Cause: Hardcoded config values instead of env vars
+        - Found: 2 days before ship
+        - Fix: 4 hours (Cameron)
+
+        Bug #2: Race condition in real-time sync
+        - Cause: Missing integration test for concurrent edit paths
+        - Found: 1 day before ship
+        - Fix: 6 hours (Cameron)
+
+        Bug #3: Memory leak in presence tracking
+        - Cause: Event listeners not cleaned up
+        - Found: Day of ship
+        - Fix: 2 hours (Drew hotfix)
+
+        Notes: All bugs found in final testing phase. Earlier integration
+        testing might have caught #1 and #2 sooner.
+      doc_type: bug_report
+
+  - id: obj_doc_previous_pm_commitments
+    kind: document
+    title: "Team Process Commitments (Previous PM)"
+    owner_actor_id: actor_pm
+    visibility:
+      scope: company
+    state:
+      body: |
+        Team Process Commitments
+        Author: [Previous PM — no longer at company]
+        Date: 2 months ago
+
+        Based on the last retro, we commit to:
+        1. Design will be included in all scope decisions ← NOT HONORED
+        2. Engineers will have dedicated focus time (no meeting Wednesdays) ← PARTIALLY HONORED
+        3. Sprint goals will be locked after planning ← NOT HONORED
+        4. Individual contributions will be called out in ship announcements ← NOT HONORED
+
+        [These commitments were made by the previous PM who left Lattice.
+        None were fully implemented before their departure.]
+      doc_type: process_document

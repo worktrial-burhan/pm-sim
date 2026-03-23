@@ -1,0 +1,88 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: pm_sim
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pm_sim"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  temporal:
+    image: temporalio/auto-setup:1.27.2
+    restart: unless-stopped
+    environment:
+      DB: postgres12
+      DB_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PWD: postgres
+      POSTGRES_SEEDS: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "7233:7233"
+
+  temporal-ui:
+    image: temporalio/ui:2.34.0
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_CORS_ORIGINS: http://localhost:8080
+    depends_on:
+      - temporal
+    ports:
+      - "8088:8080"
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    env_file:
+      - .env
+    environment:
+      PM_SIM_DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/pm_sim
+      PM_SIM_TEMPORAL_ADDRESS: temporal:7233
+      PYTHONUNBUFFERED: "1"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      temporal:
+        condition: service_started
+    ports:
+      - "8000:8000"
+    command: ["pm-sim-api"]
+    volumes:
+      - .:/workspace
+      - sdk_sessions:/home/simuser/.claude
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PM_SIM_DATABASE_URL: postgresql+psycopg://postgres:postgres@postgres:5432/pm_sim
+      PM_SIM_TEMPORAL_ADDRESS: temporal:7233
+      PYTHONUNBUFFERED: "1"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      temporal:
+        condition: service_started
+    command: ["pm-sim-worker"]
+    volumes:
+      - .:/workspace
+      - sdk_sessions:/home/simuser/.claude
+
+volumes:
+  postgres_data:
+  sdk_sessions:

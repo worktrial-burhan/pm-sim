@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .scenario-details summary::-webkit-details-marker { display: none; }
+  .scenario-details[open] .scenario-arrow { transform: rotate(90deg); }
+</style>
+<div style="display: flex; flex-direction: column; gap: 16px;">
+
+  {# ── Scenarios ── #}
+  <section class="panel">
+    <h2>Scenarios</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 12px;">
+      {% for scenario in scenarios %}
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+        <div style="flex: 1; min-width: 0;">
+          <details class="scenario-details">
+            <summary style="font-weight: 600; font-size: 14px; cursor: pointer; list-style: none;">
+              {{ scenario.name }}
+              <span class="scenario-arrow" style="font-size: 10px; color: #999; margin-left: 4px; display: inline-block; transition: transform 0.15s;">▶</span>
+            </summary>
+            <p style="font-size: 13px; color: #5e5b54; margin: 6px 0 0; line-height: 1.5;">{{ scenario.description }}</p>
+          </details>
+        </div>
+        <form method="post" action="/ui/runs" style="flex-shrink: 0; margin-left: 16px; display: flex; gap: 6px; align-items: center; padding-top: 1px;">
+          <input type="hidden" name="scenario_id" value="{{ scenario.id }}" />
+          <select name="model" aria-label="Model" style="font-size: 12px;">
+            {% for m in model_choices %}
+            <option value="{{ m.id }}"{% if m.id == default_model %} selected{% endif %}>{{ m.label }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit">Run</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  {# ── Runs ── #}
+  <section class="panel">
+    <h2>Runs</h2>
+    {% if runs %}
+    <table>
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>Status</th>
+          <th>Model</th>
+          <th>Sim Elapsed</th>
+          <th>Wall Time</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for run in runs %}
+        <tr>
+          <td>
+            <a href="/ui/runs/{{ run.id }}" style="font-weight: 500;">{{ run.scenario_name or run.scenario_id }}</a>
+          </td>
+          <td><span class="status-pill {{ run.status }}">{{ run.status }}</span></td>
+          <td style="font-size: 12px; color: #7a7770;">{{ run.model or "-" }}</td>
+          <td style="font-size: 12px; font-family: ui-monospace, monospace; color: #7a7770;">{{ run.sim_elapsed or "-" }}</td>
+          <td style="font-size: 12px; font-family: ui-monospace, monospace; color: #7a7770;">
+            <span class="wall-clock" data-started="{{ run.started_at or '' }}" data-ended="{{ run.ended_at or '' }}" data-status="{{ run.status }}">{{ run.wall_elapsed or "-" }}</span>
+          </td>
+          <td style="text-align: right;">
+            {% if run.status == "running" %}
+            <form method="post" action="/ui/runs/{{ run.id }}/pause" style="display: inline;">
+              <button type="submit" style="font-size: 11px; padding: 3px 8px;">Pause</button>
+            </form>
+            {% elif run.status == "paused" and run.started_at %}
+            <form method="post" action="/ui/runs/{{ run.id }}/resume" style="display: inline;">
+              <button type="submit" style="font-size: 11px; padding: 3px 8px;">Resume</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="muted">No runs yet. Pick a scenario above to start.</p>
+    {% endif %}
+  </section>
+
+</div>
+<script>
+function formatDuration(ms) {
+  var s = Math.max(Math.floor(ms / 1000), 0);
+  if (s < 60) return s + 's';
+  var m = Math.floor(s / 60);
+  if (m < 60) return m + 'm';
+  var h = Math.floor(m / 60); m = m % 60;
+  if (h < 24) return m ? h + 'h ' + m + 'm' : h + 'h';
+  var d = Math.floor(h / 24); h = h % 24;
+  return h ? d + 'd ' + h + 'h' : d + 'd';
+}
+function tickWallClocks() {
+  document.querySelectorAll('.wall-clock').forEach(function(el) {
+    var started = el.dataset.started;
+    var ended = el.dataset.ended;
+    var status = el.dataset.status;
+    if (!started) return;
+    var end = (ended && status !== 'running') ? new Date(ended) : new Date();
+    var elapsed = end - new Date(started);
+    el.textContent = formatDuration(elapsed);
+  });
+}
+tickWallClocks();
+setInterval(tickWallClocks, 1000);
+</script>
+{% endblock %}

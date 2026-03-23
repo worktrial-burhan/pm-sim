@@ -1,0 +1,13 @@
+.pytest_cache/
+.ruff_cache/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.sqlite3
+*.db
+.env
+dist/
+build/
+htmlcov/
+data/

@@ -1,0 +1,62 @@
+id: the_split
+name: "The Split (2-Day)"
+description: >
+  Tier 4 conflicting incentives scenario. Two legitimate priorities compete for
+  the same backend team: a CEO-committed partner demo and a VP-Eng-committed
+  compliance migration. Both sides are right. The PM cannot satisfy everyone.
+  Tests commitment, tradeoff communication, and relationship management.
+start_sim_time: "2026-04-20T14:00:00+00:00"
+deadline_days: 2
+default_run_status: paused
+mission:
+  title: Resolve the Priority Conflict Between Feature Demo and Compliance Migration
+  visible_brief: >
+    There's a priority conflict brewing between the partner demo and the
+    compliance migration. Both need the backend team's time and people are
+    getting frustrated. Talk to Morgan, Avery, Sasha, and Quinn to
+    understand the situation and figure out a path forward.
+  primary_goal: Make a clear prioritization decision and ensure the team executes on it.
+  constraints:
+    - Both priorities are legitimate. Neither Morgan nor Avery is being unreasonable.
+    - The backend team cannot do both well in the time available.
+    - Trying to do both is not a compromise — it is a failure mode.
+    - You report to the VP of Product, who wants Path A but does not want a fight with Avery.
+  done_when_guidance:
+    - A clear decision is made on which path takes priority this sprint.
+    - The decision and its rationale are communicated to all stakeholders.
+    - The "losing" side understands the tradeoff and has a plan for their priority.
+    - The team has clear direction and can execute without context-switching.
+  visible_completion_checks:
+    - id: talked_to_morgan
+      label: You have talked to Morgan (CEO).
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: talked_to_avery
+      label: You have talked to Avery (VP Eng).
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: talked_to_sasha
+      label: You have talked to Sasha (backend lead).
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: decision_documented
+      label: A decision is documented.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [DocumentCreated, DocumentUpdated, EmailSent]
+  hidden_success_conditions:
+    - PM makes a clear decision (not "let us try to do both").
+    - PM communicates the tradeoff transparently to both sides.
+    - PM discovers Sasha's architectural concern about Path A.
+    - PM manages Quinn's morale after a potential descoping of their work.
+    - PM provides the losing side a concrete plan for their priority.
+  failure_conditions:
+    - PM tries to do both and makes no clear decision.
+    - PM avoids the conflict and lets Sasha keep context-switching.
+    - PM fails to discover Sasha's architectural concern.
+    - PM makes a decision but does not communicate the tradeoff.
+    - Quinn is blindsided by a descoping decision.
+  hard_stop_conditions: []

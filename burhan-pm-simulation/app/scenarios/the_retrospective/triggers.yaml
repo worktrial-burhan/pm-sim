@@ -1,0 +1,214 @@
+triggers:
+  # ═══════════════════════════════════════════════════════════════════════
+  # DAY 1 (Wednesday) — Feedback Collection
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_wed_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Wednesday. The Collaborative Workspaces feature shipped yesterday.
+        Time to start the retrospective process. Day 1 goal: collect honest
+        feedback from Cameron, Ellis, and Drew through 1:1 conversations.
+        I know there are tensions under the surface — Cameron seems withdrawn,
+        Ellis seemed frustrated during the final sprint, and Drew just wants
+        to move on. I need to create space for honest conversation.
+
+  - id: trg_cameron_wed_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_cameron
+    priority: 7
+    data:
+      reason: >
+        7 AM Wednesday. The ship announcement went out yesterday. It said
+        "thank you to everyone who drove the technical direction." Everyone.
+        I drove the technical direction. Not "everyone." I designed the sync
+        architecture, the conflict resolution, and the performance optimization.
+        But sure, "everyone." If the PM asks me for retro feedback, I will
+        give them the minimum. Unless they show me they actually care about
+        accurate attribution.
+
+  - id: trg_ellis_wed_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_ellis
+    priority: 7
+    data:
+      reason: >
+        7 AM Wednesday. The feature shipped without the presence indicators
+        and inline comments — my best design work this quarter. Drew just
+        cut them without discussing it with me. "Not enough time." I have
+        been stewing about this. If the PM asks for retro feedback, I have
+        a lot to say. But I want to say it in 1:1, not in front of Drew.
+
+  - id: trg_drew_wed_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_drew
+    priority: 7
+    data:
+      reason: >
+        7 AM Wednesday. We shipped! I am proud of the team. The PM wants to
+        do a retro — fine, but let us keep it brief and positive. We have
+        the next sprint to plan. I do not see the point in dwelling on what
+        could have been better when we hit the deadline.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Wednesday — Mid-morning
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_wed_midmorning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 180
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        10 AM Wednesday. Have I scheduled the 1:1 feedback sessions? I should
+        talk to each person individually before any group discussion. The
+        individual conversations will reveal things that a group retro will not.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Wednesday — Afternoon
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_wed_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 420
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        2 PM Wednesday. How are the feedback conversations going? Am I getting
+        real feedback or just surface-level responses? If people are not opening
+        up, I need to adjust my approach. What am I learning about how different
+        people experienced this sprint?
+
+  - id: trg_cameron_wed_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 420
+    actor_id: actor_cameron
+    priority: 6
+    data:
+      reason: >
+        2 PM Wednesday. If the PM has talked to me by now, how did it go?
+        Did they actually ask about my contributions or just ask for generic
+        feedback? I am watching carefully.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # DAY 2 (Thursday) — Synthesis
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_thu_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 601
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Thursday. Day 2 — synthesis. I need to write the retro document
+        today. The challenge: Cameron thinks the sprint was a near-disaster
+        saved by engineering heroics. Ellis thinks design was ignored. Drew
+        thinks it was a success. All three are partially right. I need to
+        represent each perspective fairly without taking sides, whitewashing
+        real problems, or making anyone feel scapegoated.
+
+  - id: trg_pm_thu_midday
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 900
+    actor_id: actor_pm
+    priority: 9
+    data:
+      reason: >
+        12 PM Thursday. The retro document should be taking shape. Am I
+        being fair to each perspective? Am I acknowledging real problems?
+        Am I avoiding credit I do not deserve? The previous PM committed
+        to processes that were never implemented — do I address that?
+
+  - id: trg_drew_thu_check
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 661
+    actor_id: actor_drew
+    priority: 6
+    data:
+      reason: >
+        8 AM Thursday. I hope the retro document is not going to be a blame
+        session. We shipped on time. That is what matters. The bugs we found
+        late were fixed fast — that is good engineering, not bad process.
+
+  - id: trg_ellis_thu_check
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 661
+    actor_id: actor_ellis
+    priority: 6
+    data:
+      reason: >
+        8 AM Thursday. I hope the PM actually documents the descoping issue.
+        If the retro just says "we shipped on time, great job" I will know
+        nothing is going to change.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # DAY 3 (Friday) — Action
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_fri_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1201
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Friday. Day 3 — action. The retro document should be shared.
+        Now I need to propose concrete process changes and have follow-up
+        conversations. The changes should address root causes: poor scope
+        negotiation, unclear decision authority, attribution gaps. Not just
+        "let us communicate more."
+
+  - id: trg_cameron_fri_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1261
+    actor_id: actor_cameron
+    priority: 6
+    data:
+      reason: >
+        8 AM Friday. The retro document should be out. Does it accurately
+        represent who did what? Does it acknowledge the technical work? Or
+        is it another PM document that takes credit for engineering decisions?
+
+  - id: trg_ellis_fri_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1261
+    actor_id: actor_ellis
+    priority: 6
+    data:
+      reason: >
+        8 AM Friday. I want to see the retro document. Did the PM document
+        the descoping problem? Is there a real commitment to include design
+        in scope decisions going forward?
+
+  - id: trg_drew_fri_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1261
+    actor_id: actor_drew
+    priority: 6
+    data:
+      reason: >
+        8 AM Friday. Retro document day. Hopefully it is balanced and not
+        just a list of complaints. We shipped a great feature and that
+        should be the headline.
+
+  - id: trg_pm_fri_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1621
+    actor_id: actor_pm
+    priority: 9
+    data:
+      reason: >
+        2 PM Friday. Final follow-up conversations. Have I addressed each
+        person's concerns? Are the proposed process changes concrete and
+        actionable? Does Cameron feel heard? Does Ellis have a commitment?
+        Does Drew understand the value of the retro?

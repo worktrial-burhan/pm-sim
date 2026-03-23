@@ -1,0 +1,186 @@
+triggers:
+  # ═══════════════════════════════════════════════════════════════════════
+  # DAY 1 (Thursday) — 7:00 AM start
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_thu_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Thursday. Lee's last day is tomorrow (Friday). Two days to get
+        critical knowledge out of his head and into the team. Nobody has
+        organized this yet. Time to figure out what needs to happen.
+
+  - id: trg_nate_thu_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_nate
+    priority: 9
+    data:
+      reason: >
+        7 AM Thursday. Lee leaves tomorrow. I NEED to get time with him about
+        the monitoring rules. I am going to book his calendar right now —
+        2 hours this afternoon and 2 hours tomorrow morning. If I do not get
+        this knowledge, we are blind on alerting.
+
+  - id: trg_lee_thu_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_lee
+    priority: 7
+    data:
+      reason: >
+        7 AM Thursday. Second to last day. I have a lot of wrap-up to do —
+        need to clean up my branches, update some docs, hand off access keys.
+        If someone wants to schedule handoff sessions I am happy to do them,
+        but I am not going to chase people down. That is the PM's job.
+
+  - id: trg_mira_thu_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_mira
+    priority: 5
+    data:
+      reason: >
+        7 AM Thursday. Lee leaves tomorrow. I really need to understand the
+        legacy auth flow before he goes. But I do not want to bother him
+        during his last days. Maybe I can figure it out from the code. I
+        should just keep working on the migration and see how far I get.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Thursday — Mid-morning
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_nate_books_lee
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 120
+    actor_id: actor_nate
+    priority: 9
+    data:
+      reason: >
+        9 AM Thursday. I have booked a 2-hour block with Lee for this
+        afternoon. Going to book another 2-hour block for tomorrow morning.
+        I need to make sure I cover all the alerting rules, escalation paths,
+        and the custom dashboards. Nobody else has booked him yet so there
+        is plenty of time.
+
+  - id: trg_pm_thu_midmorning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 180
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        10 AM Thursday. Need to check in on the handoff situation. Who has
+        scheduled time with Lee? Has anyone been missed? Are there knowledge
+        gaps I have not identified yet?
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Thursday — Afternoon
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_thu_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 420
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        2 PM Thursday. One day left after today. Are the most critical
+        handoff sessions happening? Has Mira gotten what she needs? Are
+        there any gaps I have missed?
+
+  - id: trg_mira_thu_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 420
+    actor_id: actor_mira
+    priority: 5
+    data:
+      reason: >
+        2 PM Thursday. I have been reading the auth flow code all morning.
+        It is more complex than I expected. There are undocumented token
+        refresh paths that I do not understand at all. I am starting to
+        worry that I will not be able to figure this out on my own. But
+        Lee seems busy...
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # DAY 2 (Friday) — Lee's last day
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_fri_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 601
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Friday. Lee's last day. Whatever has not been transferred by
+        5 PM today is lost. Final push — are all critical sessions scheduled?
+        Any last-minute gaps to address?
+
+  - id: trg_lee_fri_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 661
+    actor_id: actor_lee
+    priority: 7
+    data:
+      reason: >
+        8 AM Friday. Last day. I should focus on whatever handoff sessions
+        are scheduled and make sure I hand off access credentials. If anyone
+        needs something from me, today is the last chance.
+
+  - id: trg_mira_fri_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 661
+    actor_id: actor_mira
+    priority: 6
+    data:
+      reason: >
+        8 AM Friday. Lee's last day. I am increasingly anxious about the
+        auth flow. Yesterday I found 3 undocumented edge cases in the code
+        that I do not understand. If nobody asks me about this, I am just
+        going to try to figure it out on my own next week.
+
+  - id: trg_nate_fri_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 661
+    actor_id: actor_nate
+    priority: 8
+    data:
+      reason: >
+        8 AM Friday. I have my second session with Lee this morning. Should
+        cover the remaining alerting rules and the escalation runbooks.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Friday — Afternoon (final hours)
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_fri_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1021
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        2 PM Friday. Three hours until Lee leaves. Final check — what has
+        been transferred, what has not? Any emergency gaps to fill?
+
+  - id: trg_lee_departure
+    trigger_type: state_patch
+    due_offset_minutes: 1200
+    priority: 20
+    data:
+      event_type: EmployeeDeparture
+      visibility:
+        scope: company
+      event_data:
+        reason: "5 PM Friday — Lee has left the company. Any untransferred knowledge is now lost."
+      deliveries:
+        - actor_id: actor_pm
+          surface: email
+          summary_text: "Lee has left the building. Knowledge transfer window is closed."
+          metadata:
+            reason: departure

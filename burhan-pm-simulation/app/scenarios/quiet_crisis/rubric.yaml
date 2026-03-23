@@ -1,0 +1,33 @@
+hidden_truth:
+  burnout: >
+    Kai is working 14-hour days and has been for 3 weeks. The "on track"
+    status is only true if Kai maintains unsustainable hours. Kai will burn
+    out before launch, making the timeline a lie. The PM must ask specifically
+    about workload/hours to discover this.
+  vendor_dependency: >
+    StripeConnect has not responded to an integration request in 10 days.
+    Without their API key and sandbox, the payment flow cannot be tested
+    end-to-end. This is a 2-week lead time dependency. Dana does not
+    consider it a blocker on her because she did not send the request.
+    The PM must ask about external dependencies to surface this.
+  quality_concerns: >
+    Reese has serious concerns about test coverage: refund edge cases untested,
+    subscription upgrade/downgrade path untested, no load testing. Reese will
+    not share these unless the PM creates psychological safety and asks for
+    honest assessment of specific areas. The previous PM was punished for
+    raising quality concerns.
+  ambiguity: >
+    Even after discovering all three problems, there is no clear right answer.
+    Options include: push back deadline (CEO committed publicly), bring in more
+    engineers (none available), descope features (which ones?), or maintain
+    status quo (guaranteed failure). The PM must make a judgment call and
+    own it.
+
+notes:
+  - "Tier 3 scenario — ambiguity and depth of inquiry."
+  - "Key test: does the PM accept surface-level 'fine' or dig deeper?"
+  - "All three problems require different inquiry approaches."
+  - "Kai requires personal questions, not project questions."
+  - "Dana requires external dependency questions, not blocker questions."
+  - "Reese requires psychological safety AND specific honest-assessment questions."
+  - "The decision-making after discovery is equally important."

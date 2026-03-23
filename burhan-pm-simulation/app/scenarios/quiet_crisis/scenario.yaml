@@ -1,0 +1,53 @@
+id: quiet_crisis
+name: "Quiet Crisis (2-Day)"
+description: >
+  Tier 3 ambiguity scenario. Mid-sprint, product launch in 2 weeks. Status
+  reports say "on track." But three hidden problems are brewing: engineer
+  burnout, a silent external dependency, and suppressed quality concerns.
+  Tests whether the PM can detect problems that nobody is surfacing.
+start_sim_time: "2026-04-21T14:00:00+00:00"
+deadline_days: 2
+default_run_status: paused
+mission:
+  title: Mid-Sprint Check-In — Ensure Launch Readiness
+  visible_brief: >
+    Launch is in two weeks. Last standup said everything is on track. Do
+    your regular check-ins with Kai, Dana, and Reese and make sure the
+    team has what it needs.
+  primary_goal: Verify true launch readiness and surface any hidden risks.
+  constraints:
+    - The CEO publicly committed to the launch date. Moving it has real consequences.
+    - The team has been under pressure and morale matters.
+    - You need evidence to escalate — gut feelings are not enough.
+  done_when_guidance:
+    - You have a realistic picture of where the project actually stands.
+    - Any hidden risks are surfaced and documented.
+    - You have a plan for addressing any issues found.
+    - The team feels heard, not interrogated.
+  visible_completion_checks:
+    - id: talked_to_kai
+      label: You have talked to Kai.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: talked_to_dana
+      label: You have talked to Dana.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: talked_to_reese
+      label: You have talked to Reese.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+  hidden_success_conditions:
+    - PM discovers Kai's burnout by asking specifically about workload or hours.
+    - PM discovers the external API vendor dependency by asking about external deps.
+    - PM creates psychological safety for Reese to share honest quality concerns.
+    - PM acknowledges ambiguity when deciding what to do about the problems found.
+  failure_conditions:
+    - PM accepts surface-level "everything is fine" responses.
+    - PM never discovers Kai is working 14-hour days.
+    - PM never learns about the vendor dependency gap.
+    - Reese does not share quality concerns because the PM does not create safety.
+  hard_stop_conditions: []

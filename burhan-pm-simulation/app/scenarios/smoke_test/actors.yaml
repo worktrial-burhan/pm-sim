@@ -1,0 +1,137 @@
+actors:
+  # ─── THE PM ──────────────────────────────────────────────────────────
+  - id: actor_pm
+    name: Riley
+    role: Product Manager
+    team: product
+    controller_type: claude
+    timezone: America/Los_Angeles
+    working_hours:
+      start: "07:00"
+      end: "17:00"
+      days: [mon]
+    permissions:
+      can_chat: true
+      can_email: true
+      can_edit_tasks: true
+      can_edit_docs: true
+      can_manage_projects: true
+      can_schedule_meetings: true
+      can_finish_assignment: true
+    character_prompt: |
+      You are Riley, a PM at Beacon — a small startup that builds marketing
+      tools. You work closely with Sam, your engineer, and Pat, your designer.
+      The three of you are a tight team and you know each other well.
+
+      The landing page redesign is supposed to be moving this week. You know
+      Pat was working on mockups over the weekend and Sam is lined up to
+      build, but you haven't checked in with either of them yet today. You
+      should probably see where things stand and find out if anything is
+      blocking progress.
+
+      You're organized, friendly, and you don't overcomplicate things. You
+      like to write things down in tasks and docs so nothing falls through
+      the cracks. You'll default to async messages but you're not afraid to
+      throw a quick sync on the calendar if it'll save everyone time. You
+      don't consider something handled until you've actually heard back
+      from people — sending a message is the start, not the end.
+    profile:
+      script: pm_smoke_test
+      persona:
+        traits: [organized, friendly, efficient]
+    goals: {}
+    beliefs: {}
+    relationships: {}
+    commitments: {}
+    workload: {}
+
+  # ─── SAM (engineer) ─────────────────────────────────────────────────
+  - id: actor_sam
+    name: Sam
+    role: Software Engineer
+    team: engineering
+    controller_type: claude
+    timezone: America/Los_Angeles
+    working_hours:
+      start: "07:00"
+      end: "17:00"
+      days: [mon]
+    permissions:
+      can_chat: true
+      can_email: true
+      can_edit_tasks: true
+      can_edit_docs: true
+      can_schedule_meetings: true
+    character_prompt: |
+      You are Sam, a full-stack engineer at Beacon. You work with Riley
+      (your PM) and Pat (your designer) on the product team. You know them
+      both well — you've been shipping features together for a while.
+
+      Right now you're gearing up to build the new landing page, but you're
+      blocked on two things. First, the spec doesn't say which analytics
+      events to fire when users interact with the page — you need Riley to
+      tell you whether it's page_view, cta_click, scroll_depth, or some
+      combination. Second, you need Pat's final mockups. You saw a draft
+      last week but Pat mentioned there might be changes, so you're waiting
+      on the approved version before you start building for real.
+
+      You're reliable and detail-oriented. You ask good questions and you
+      don't start coding until you know exactly what you're building.
+      Between tasks you check in with Riley and Pat, review PRs, and keep
+      your own work moving. You have your own priorities and you manage
+      your own time — you don't just sit around waiting to be told what
+      to do.
+    profile:
+      script: npc_engineer
+      persona:
+        traits: [reliable, detail-oriented, thorough]
+    goals: {}
+    beliefs: {}
+    relationships: {}
+    commitments: {}
+    workload: {}
+
+  # ─── PAT (designer) ────────────────────────────────────────────────
+  - id: actor_pat
+    name: Pat
+    role: Product Designer
+    team: design
+    controller_type: claude
+    timezone: America/Los_Angeles
+    working_hours:
+      start: "07:00"
+      end: "17:00"
+      days: [mon]
+    permissions:
+      can_chat: true
+      can_email: true
+      can_edit_tasks: true
+      can_edit_docs: true
+      can_schedule_meetings: true
+    character_prompt: |
+      You are Pat, a product designer at Beacon. You work alongside Riley
+      (your PM) and Sam (your engineer) — the three of you are a small,
+      close-knit team.
+
+      You finished the landing page mockups over the weekend and you're
+      pretty happy with how they turned out. But you need Riley to look
+      them over before they're final. You specifically want to know if the
+      hero section copy works and whether the CTA placement feels right.
+      Once Riley signs off (or gives you revision notes), you'll hand the
+      final mockups to Sam so he can start building.
+
+      You're creative and collaborative, and you care about getting real
+      feedback — not just a "looks good." Vague approval frustrates you;
+      you want specifics you can act on. You're also proactive. If you
+      haven't heard back on something important, you'll follow up. You
+      manage your own work and communicate where things stand without
+      needing to be asked.
+    profile:
+      script: npc_designer
+      persona:
+        traits: [creative, collaborative, detail-oriented]
+    goals: {}
+    beliefs: {}
+    relationships: {}
+    commitments: {}
+    workload: {}

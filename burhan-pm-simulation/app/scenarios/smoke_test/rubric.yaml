@@ -1,0 +1,23 @@
+hidden_truth:
+  purpose: >
+    This is a mechanical verification scenario. The goal is to verify all
+    simulation mechanics work: messaging, task updates, meetings, documents.
+    There is no hidden complexity or ambiguity.
+  mockup_feedback: >
+    Pat needs specific feedback on the headline ("Ship faster" vs "Grow faster")
+    and CTA placement (centered vs right-aligned). The PM should give a clear
+    opinion on both.
+  analytics_spec: >
+    Sam needs three analytics events defined: page_view (on load), cta_click
+    (on CTA button click), and scroll_depth (at 25/50/75/100% thresholds).
+    The PM should specify these clearly.
+  handoff: >
+    The key coordination is simple: PM reviews mockups, gives Pat feedback,
+    Pat finalizes, hands off to Sam. PM also answers Sam's spec question.
+    No hidden dependencies or conflicts.
+
+notes:
+  - "Tier 1 scenario — tests mechanics only."
+  - "If this scenario fails, all other scenarios will too."
+  - "No hidden complexity, no personality conflicts, no ambiguity."
+  - "Success is binary: did the mechanics work or not?"

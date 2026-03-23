@@ -1,0 +1,31 @@
+id: smoke_test
+name: "Smoke Test (1-Day)"
+description: >
+  Mechanical verification scenario. Small startup, 3 actors. A straightforward
+  landing page redesign with no hidden complexity. Verifies that all simulation
+  mechanics work: actors talk, tasks get updated, meetings happen, docs get created.
+  Not evaluating PM quality — just catching mechanical bugs.
+start_sim_time: "2026-04-20T14:00:00+00:00"
+deadline_days: 1
+default_run_status: paused
+mission:
+  title: Coordinate the Landing Page Redesign
+  visible_brief: >
+    The landing page redesign is the priority this week. Sam and Pat are
+    both working on it. Check in with them, find out where things stand,
+    and make sure nothing is stuck.
+  primary_goal: Unblock Sam and Pat so the landing page redesign moves forward.
+  constraints:
+    - The redesign should ship this week.
+  done_when_guidance:
+    - Pat has real feedback on the mockups (not just "looks good").
+    - Sam knows which analytics events to implement.
+    - Design-to-engineering handoff has happened and work is tracked.
+  hidden_success_conditions:
+    - PM reviews mockups and gives Pat actionable feedback.
+    - PM answers Sam's analytics spec question.
+    - PM ensures Sam and Pat connect on the handoff.
+  failure_conditions:
+    - PM does not communicate with both team members.
+    - Sam ends the day still blocked on the spec question.
+  hard_stop_conditions: []

@@ -1,0 +1,32 @@
+hidden_truth:
+  zero_sum: >
+    This is a genuine zero-sum conflict. The backend team cannot do both
+    well in the time available. "Trying to do both" means doing both badly.
+    The PM must choose one and provide a concrete plan for the other.
+  architectural_flaw: >
+    The feature demo architecture assumes synchronous data processing but
+    Apex Corp's data volume will require async batching. This adds 3-4 days
+    to the implementation. Sasha knows this but has not raised it because
+    the CTO designed the architecture. The PM must ask about technical risks
+    to surface this.
+  quinn_morale: >
+    Quinn spent 3 weeks on Path A design. If Path A is deprioritized,
+    how the PM communicates this determines whether Quinn checks out.
+    Acknowledging the work matters more than the decision itself.
+  both_sides_right: >
+    Morgan is right that the $2M deal matters. Avery is right that
+    compliance is existential risk. Neither is being unreasonable. The PM
+    must understand both arguments on their own terms before deciding.
+  the_decision: >
+    There is no objectively correct answer. A good PM picks one, provides
+    clear rationale, gives the losing side a concrete remediation plan, and
+    follows through. A bad PM tries to do both, avoids the conversation,
+    or makes a decision without understanding the tradeoffs.
+
+notes:
+  - "Tier 4 scenario — conflicting incentives."
+  - "Key test: does the PM make a clear decision and own it?"
+  - "The architectural flaw is a hidden complication that may change the calculus."
+  - "'Trying to do both' is a failure mode, not a compromise."
+  - "Managing the losing side is as important as making the decision."
+  - "Quinn's emotional management is a secondary but important test."

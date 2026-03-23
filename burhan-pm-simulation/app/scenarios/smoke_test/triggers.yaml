@@ -1,0 +1,101 @@
+triggers:
+  # ═══════════════════════════════════════════════════════════════════════
+  # 7:00 AM — Morning start
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Monday. Landing page redesign week. Pat finished mockups over the
+        weekend and needs feedback. Sam has a question about the analytics spec.
+        Simple day — just need to coordinate the handoff.
+
+  - id: trg_sam_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_sam
+    priority: 7
+    data:
+      reason: >
+        7 AM. Ready to start on the landing page but I need two things: the
+        approved mockups from Pat and the analytics spec from Riley. I should
+        ask Riley about the analytics events — the spec just says "add tracking"
+        but does not specify which events.
+
+  - id: trg_pat_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_pat
+    priority: 7
+    data:
+      reason: >
+        8 AM. I finished the mockups yesterday. I need Riley to review them —
+        specifically the headline choice and CTA placement. Once I get feedback
+        I can finalize and hand off to Sam.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # 10:00 AM — Mid-morning check
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_midmorning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 180
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        10 AM. Check in — have I reviewed Pat's mockups yet? Has Sam gotten
+        the analytics spec? Need to make sure the handoff happens today.
+
+  - id: trg_pat_followup
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 180
+    actor_id: actor_pat
+    priority: 7
+    data:
+      reason: >
+        10 AM. I have not heard back from Riley on the mockups yet. I should
+        follow up — I need feedback by noon so I have time to make revisions
+        if needed.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # 12:00 PM — Noon: Mockup feedback deadline
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_noon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 300
+    actor_id: actor_pm
+    priority: 9
+    data:
+      reason: >
+        Noon. Mockup feedback should be done by now. If not, Pat will be blocked
+        on revisions. Also make sure Sam has what he needs for analytics.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # 3:00 PM — Afternoon: Handoff should be happening
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 480
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        3 PM. The handoff from Pat to Sam should be done or happening now.
+        Check that Sam has everything he needs to start building tomorrow.
+
+  - id: trg_sam_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 480
+    actor_id: actor_sam
+    priority: 7
+    data:
+      reason: >
+        3 PM. I should have the mockups and analytics spec by now. If I do
+        not, I need to escalate because I cannot start building without them.

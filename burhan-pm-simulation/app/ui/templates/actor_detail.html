@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="actions">
+  <a href="/ui/runs/{{ run.id }}">Back To Run</a>
+</div>
+
+<div class="grid" style="margin-top: 16px;">
+  <section class="panel">
+    <h2>Actor</h2>
+    <p><strong>Name:</strong> {{ actor.name }}</p>
+    <p><strong>Role:</strong> {{ actor.role }}</p>
+    <p><strong>Team:</strong> {{ actor.team or "-" }}</p>
+    <p><strong>Timezone:</strong> {{ actor.timezone or "-" }}</p>
+    <p><strong>Controller:</strong> {{ actor.controller_type }}</p>
+    <p><strong>Next Eligible Wake:</strong> {{ actor.next_eligible_wake_time or "-" }}</p>
+    <p><strong>Local Time:</strong> {{ work_availability.local_time }}</p>
+    <p><strong>Working Hours:</strong> {{ "on the clock" if work_availability.within_working_hours else "outside working hours" }}</p>
+    <p><strong>Today's Window:</strong> {{ work_availability.today_windows|join(", ") if work_availability.today_windows else "-" }}</p>
+    {% if assignment %}
+    <p><strong>Assignment:</strong> {{ assignment.title }}</p>
+    <p>{{ assignment.visible_brief }}</p>
+    {% if assignment.visible_completion_checks %}
+    <p><strong>Visible Finish Checks:</strong></p>
+    <ul>
+      {% for check in assignment.visible_completion_checks %}
+      <li>{{ check.label }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if assignment.finish_readiness_snapshot %}
+    <p><strong>Finish Readiness:</strong> {{ "ready" if assignment.finish_readiness_snapshot.ready_to_finish else "not ready" }}</p>
+    {% endif %}
+    {% endif %}
+  </section>
+
+  <section class="panel">
+    <h2>Recent Observations</h2>
+    {% if observations %}
+    <table>
+      <thead>
+        <tr>
+          <th>When</th>
+          <th>Kind</th>
+          <th>Headline</th>
+          <th>Summary</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in observations %}
+        <tr>
+          <td>{{ item.at }}</td>
+          <td>{{ item.kind }}</td>
+          <td>{{ item.headline }}</td>
+          <td>{{ item.summary or "-" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="muted">No recent observations.</p>
+    {% endif %}
+  </section>
+</div>
+
+<section class="panel" style="margin-top: 16px;">
+  <h2>Current Commitments</h2>
+  {% if commitments %}
+  <table>
+    <thead>
+      <tr>
+        <th>Commitment</th>
+        <th>Summary</th>
+        <th>Due</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in commitments %}
+      <tr>
+        <td>{{ item.title }}</td>
+        <td>{{ item.summary or "-" }}</td>
+        <td>{{ item.due_at or "-" }}</td>
+        <td>{{ item.status or "-" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No active commitments.</p>
+  {% endif %}
+</section>
+
+<section class="panel" style="margin-top: 16px;">
+  <h2>Inbox Surfaces</h2>
+    {% if inbox %}
+    <table>
+      <thead>
+        <tr>
+          <th>Surface</th>
+          <th>From</th>
+          <th>Status</th>
+          <th>Delivered</th>
+          <th>Summary</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in inbox %}
+        <tr>
+          <td>{{ item.surface }}</td>
+          <td>{{ item.event.sender_name or item.event.sender_actor_id or "-" }}</td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.delivered_at_sim }}</td>
+          <td>{{ item.summary }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="muted">Inbox empty.</p>
+    {% endif %}
+  </section>
+
+<section class="panel" style="margin-top: 16px;">
+  <h2>Visible Work</h2>
+  {% if visible_objects %}
+  <table>
+    <thead>
+      <tr>
+        <th>Kind</th>
+        <th>Title</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in visible_objects %}
+      <tr>
+        <td>{{ item.kind }}</td>
+        <td>{{ item.title }}</td>
+        <td><code>{{ item.state }}</code></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No visible work items.</p>
+  {% endif %}
+</section>
+
+<section class="panel" style="margin-top: 16px;">
+  <h2>Recent Traces</h2>
+  {% if traces %}
+  <table>
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Type</th>
+        <th>Summary</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for trace in traces %}
+      <tr>
+        <td>{{ trace.sim_time }}</td>
+        <td>{{ trace.trace_type }}</td>
+        <td>{{ trace.summary }}</td>
+        <td><code>{{ trace.data_json }}</code></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No traces yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

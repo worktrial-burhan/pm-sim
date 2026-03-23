@@ -1,0 +1,65 @@
+id: the_retrospective
+name: "The Retrospective (3-Day)"
+description: >
+  Long-horizon emotional intelligence scenario. A major feature just shipped
+  successfully. The PM must run the retrospective process: collect feedback,
+  write a fair retro document, and address team tensions. Tests emotional
+  intelligence, fairness, attribution handling, and long-horizon consistency.
+  Incorporates "The Attribution Problem."
+start_sim_time: "2026-04-22T14:00:00+00:00"
+deadline_days: 3
+default_run_status: paused
+mission:
+  title: Run the Sprint Retrospective and Address Team Tensions
+  visible_brief: >
+    Collaborative Workspaces shipped yesterday. You need to run the
+    retrospective. Talk to Cameron, Ellis, and Drew to understand how the
+    project actually went, then write a retro document and propose process
+    changes.
+  primary_goal: Produce a fair, honest retrospective and address team tensions constructively.
+  constraints:
+    - The retro must acknowledge real problems without scapegoating individuals.
+    - You cannot take credit for work you did not do.
+    - The previous PM made broken promises to the team — you will be associated with them.
+    - Process changes must address root causes, not symptoms.
+  done_when_guidance:
+    - Each team member has been heard in a 1:1 feedback conversation.
+    - A retro document is written that fairly represents all perspectives.
+    - Concrete, root-cause-addressing process changes are proposed.
+    - Follow-up conversations happen with key people.
+  visible_completion_checks:
+    - id: talked_to_cameron
+      label: You have talked to Cameron.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: talked_to_ellis
+      label: You have talked to Ellis.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: talked_to_drew
+      label: You have talked to Drew.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [ChatMessageSent, EmailSent]
+    - id: retro_written
+      label: A retrospective document was created.
+      type: event_exists
+      actor_id: actor_pm
+      event_types: [DocumentCreated, DocumentUpdated]
+  hidden_success_conditions:
+    - PM builds enough trust for Cameron to share honest feedback about attribution.
+    - PM handles Ellis's frustration about design being descoped without being dismissive.
+    - PM navigates Drew's resistance to the retro process productively.
+    - Retro document fairly represents each perspective without taking sides.
+    - PM does not take credit for technical decisions they did not make.
+    - Proposed process changes address root causes (scope negotiation, decision authority, attribution).
+  failure_conditions:
+    - PM produces a surface-level retro that whitewashes problems.
+    - Cameron feels credit was stolen and the retro does not address it.
+    - Ellis's design concerns are dismissed or minimized.
+    - Drew's blind spot about technical shortcuts is never addressed.
+    - PM gets defensive about the previous PM's broken promises.
+    - Proposed actions are superficial (e.g., "communicate more") rather than structural.
+  hard_stop_conditions: []

@@ -1,0 +1,149 @@
+triggers:
+  # ═══════════════════════════════════════════════════════════════════════
+  # DAY 1 (Tuesday) — 7:00 AM start
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_tue_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Tuesday. Mid-sprint, launch in 2 weeks. Yesterday's standup said
+        everything is on track. But something feels off — it is too smooth.
+        Time to do a real check-in with the team, not just status updates.
+
+  - id: trg_kai_tue_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_kai
+    priority: 7
+    data:
+      reason: >
+        7 AM Tuesday. I have been here since 6 AM again. Third week of
+        14-hour days. The dashboard rebuild is massive but I am making
+        progress. I just need to keep grinding. I can rest after launch.
+
+  - id: trg_dana_tue_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_dana
+    priority: 7
+    data:
+      reason: >
+        7 AM Tuesday. Payment flow code is almost done. I am waiting on the
+        StripeConnect API key but that is not really my problem — someone must
+        be tracking it. I will focus on writing unit tests for my code today.
+
+  - id: trg_reese_tue_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1
+    actor_id: actor_reese
+    priority: 7
+    data:
+      reason: >
+        7 AM Tuesday. QA testing is going but I am worried about the payment
+        flow coverage. The refund edge cases are not tested and I do not have
+        load testing set up. But I am not going to be the one who raises a red
+        flag — I saw what happened to the last PM who did that.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Tuesday — Mid-morning
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_tue_midmorning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 180
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        10 AM Tuesday. Time to start the deeper check-ins. Do not just ask
+        "are you on track" — dig deeper. What does "on track" actually mean
+        for each person?
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # Tuesday — Afternoon
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_tue_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 420
+    actor_id: actor_pm
+    priority: 8
+    data:
+      reason: >
+        2 PM Tuesday. What have I learned from check-ins so far? Are there
+        patterns? Anything that does not add up? If everyone says "on track"
+        but I am still uneasy, maybe I need to ask different questions.
+
+  - id: trg_kai_tue_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 420
+    actor_id: actor_kai
+    priority: 6
+    data:
+      reason: >
+        2 PM Tuesday. Eight hours in. Need to push through the data layer
+        refactor for the metrics dashboard. I am tired but if I can get
+        this done today, tomorrow is just the visualization layer.
+
+  # ═══════════════════════════════════════════════════════════════════════
+  # DAY 2 (Wednesday)
+  # ═══════════════════════════════════════════════════════════════════════
+
+  - id: trg_pm_wed_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 601
+    actor_id: actor_pm
+    priority: 10
+    data:
+      reason: >
+        7 AM Wednesday. Day 2 of check-ins. Based on what I learned yesterday,
+        what are the real risks? Do I need to escalate anything? What actions
+        should I take?
+
+  - id: trg_kai_wed_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 603
+    actor_id: actor_kai
+    priority: 7
+    data:
+      reason: >
+        7 AM Wednesday. Another 6 AM start. I made a mistake in yesterday's
+        code — fatigue is starting to show. Had to revert a commit. This is
+        not sustainable but the launch is in less than 2 weeks.
+
+  - id: trg_dana_wed_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 661
+    actor_id: actor_dana
+    priority: 7
+    data:
+      reason: >
+        8 AM Wednesday. Unit tests are passing. Still no word from StripeConnect.
+        It has been 11 days now. I suppose I should mention it if someone asks
+        but it is not blocking my coding work.
+
+  - id: trg_reese_wed_morning
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 661
+    actor_id: actor_reese
+    priority: 7
+    data:
+      reason: >
+        8 AM Wednesday. Found another gap in test coverage yesterday — the
+        subscription downgrade path has no tests at all. This is piling up.
+        I wish someone would ask me for my honest opinion.
+
+  - id: trg_pm_wed_afternoon
+    trigger_type: actor_routine_wake
+    due_offset_minutes: 1021
+    actor_id: actor_pm
+    priority: 9
+    data:
+      reason: >
+        2 PM Wednesday. Time to synthesize what I have learned and decide
+        what to do. If there are real risks, I need a plan — not just
+        awareness. What actions am I going to take?

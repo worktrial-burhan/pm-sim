@@ -1,0 +1,96 @@
+objects:
+  # ─── Project ─────────────────────────────────────────────────────────
+  - id: obj_project_landing
+    kind: project
+    title: Landing Page Redesign
+    visibility:
+      scope: company
+    state:
+      status: in_progress
+      priority: high
+      owner_actor_id: actor_pm
+      description: >
+        Redesign the marketing landing page. New hero section, updated CTA,
+        improved mobile layout. Target: ship by end of week.
+
+  # ─── Tasks ───────────────────────────────────────────────────────────
+  - id: obj_task_mockup_review
+    kind: task
+    title: Review landing page mockups
+    owner_actor_id: actor_pm
+    visibility:
+      scope: company
+    state:
+      status: not_started
+      assignee_actor_id: actor_pm
+      priority: high
+      project_id: obj_project_landing
+      description: >
+        Pat finished mockups over the weekend. PM needs to review hero section
+        copy and CTA placement, then approve or give revision notes.
+
+  - id: obj_task_analytics_spec
+    kind: task
+    title: Clarify analytics events for new landing page
+    owner_actor_id: actor_pm
+    visibility:
+      scope: company
+    state:
+      status: not_started
+      assignee_actor_id: actor_pm
+      priority: high
+      project_id: obj_project_landing
+      description: >
+        Sam needs analytics guidance for the new landing page — which user
+        interactions to track and how. PM needs to work with Sam to figure
+        out the right spec.
+
+  - id: obj_task_implementation
+    kind: task
+    title: Implement landing page redesign
+    owner_actor_id: actor_sam
+    visibility:
+      scope: company
+    state:
+      status: blocked
+      assignee_actor_id: actor_sam
+      priority: high
+      project_id: obj_project_landing
+      blocker_reason: Waiting on approved mockups from Pat and analytics spec from Riley.
+      description: >
+        Build the new landing page based on approved mockups. Includes hero section,
+        CTA, mobile layout, and analytics event tracking.
+
+  # ─── Documents ───────────────────────────────────────────────────────
+  - id: obj_doc_mockups
+    kind: document
+    title: Landing Page Mockups v2
+    owner_actor_id: actor_pat
+    visibility:
+      scope: company
+    state:
+      body: |
+        Landing Page Mockups v2
+        Author: Pat
+        Last updated: Sunday evening
+
+        Hero Section:
+        - Headline: "Ship faster with Beacon"
+        - Subhead: "The marketing toolkit that grows with your team"
+        - CTA button: "Start free trial" (primary blue, centered)
+
+        Below the fold:
+        - Three feature cards (Analytics, Campaigns, Integrations)
+        - Customer logos bar
+        - Testimonial carousel
+
+        Mobile:
+        - Stacked layout, CTA becomes sticky bottom bar
+        - Feature cards collapse to accordion
+
+        Open questions for PM:
+        - Is "Ship faster with Beacon" the right headline? Marketing suggested
+          "Grow faster" instead.
+        - CTA placement: centered vs right-aligned? I went with centered but
+          Sam mentioned right-aligned converts better on similar pages.
+      doc_type: design_mockups
